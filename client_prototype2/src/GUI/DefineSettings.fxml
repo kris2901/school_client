@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="180.0" prefWidth="438.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DefineSettingsController">
+   <children>
+      <Label fx:id="IPlabel" layoutX="28.0" layoutY="41.0" prefHeight="30.0" prefWidth="90.0" text="Enter IP: ">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="portLabel" layoutX="28.0" layoutY="87.0" prefHeight="30.0" prefWidth="102.0" text="Enter Port:">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="IPtxtField" layoutX="182.0" layoutY="44.0" onAction="#EnterIP" />
+      <TextField fx:id="PortTextField" layoutX="182.0" layoutY="90.0" onAction="#EnterPort" />
+      <Button fx:id="backToLogBTN" layoutX="357.0" layoutY="130.0" mnemonicParsing="false" onAction="#back" text="Back" />
+   </children>
+</AnchorPane>

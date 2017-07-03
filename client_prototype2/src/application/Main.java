@@ -9,8 +9,7 @@ import ui.UserWindow;
 /**
  * The Class Main extends Application - this class is the main of client 
  */
-public class Main extends Application
-{
+public class Main extends Application {
 	public static Stack<String> stack;
 	public static SchoolClient client;
 	public static Object paramater;
@@ -18,31 +17,23 @@ public class Main extends Application
 	public static String ip = "127.0.0.1";
 	public static String port = "5555";
 
-	/**
-	 * start the school client and login to the system
-	 */
+    /**
+     * start the school client and login to the system
+     */   
 	@Override
-	public void start(Stage primaryStage) throws Exception
-	{
+	public void start(Stage primaryStage) throws Exception {
 		stack = new Stack<>();
 		stack.push("loginFrame");
 
 		UserWindow.createUserWindow(primaryStage, "loginFrame", getClass());
-
-		///*********************************test********************************/
-
-		// UserWindow.createUserWindow(primaryStage, "PupilFile", getClass());
-		// stack.push("PupilFile");
-
-		// userId = "333333333";
-
-		/// *********************************test********************************/
+			
 	}
 
-	/**
-	 * main
-	 * @param args - argument
-	 */
+
+    /**
+     * main
+     * @param args - argument
+     */   
 	public static void main(String[] args)
 	{
 		launch(args);

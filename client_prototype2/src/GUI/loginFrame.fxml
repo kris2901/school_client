@@ -49,5 +49,6 @@
          </textFill>
       </Label>
       <PasswordField fx:id="passwordTextField" layoutX="163.0" layoutY="221.0" />
+      <Button fx:id="setBTN" layoutX="37.0" layoutY="285.0" mnemonicParsing="false" onAction="#openSet" text="Settings" />
    </children>
 </AnchorPane>

@@ -40,6 +40,9 @@ public class UserController implements IController
 	/** The login button . */
 	@FXML
 	private Button loginBtn;
+	
+    @FXML
+    private Button setBTN;
 
 	/** The user ID text field . */
 	@FXML
@@ -80,6 +83,12 @@ public class UserController implements IController
 			// alert server is not availble
 		}
 	}
+	
+    @FXML
+    void openSet(ActionEvent event) {
+
+    	UserWindow.createUserWindow((Stage) userIdTextField.getScene().getWindow(), "DefineSettings", getClass());
+    }
 
 	/**
 	 * Adding course to semester.
@@ -172,16 +181,14 @@ public class UserController implements IController
 	@FXML
 	void initialize()
 	{
-		assert passwordTextField != null : "fx:id=\"passwordTextField\" was not injected: check your FXML file 'loginFrame.fxml'.";
-		assert loginBtn != null : "fx:id=\"loginBtn\" was not injected: check your FXML file 'loginFrame.fxml'.";
-		assert userIdTextField != null : "fx:id=\"userIdTextField\" was not injected: check your FXML file 'loginFrame.fxml'.";
-		assert AISFHSlable != null : "fx:id=\"AISFHSlable\" was not injected: check your FXML file 'loginFrame.fxml'.";
-		assert ASHlable != null : "fx:id=\"ASHlable\" was not injected: check your FXML file 'loginFrame.fxml'.";
+        assert passwordTextField != null : "fx:id=\"passwordTextField\" was not injected: check your FXML file 'loginFrame.fxml'.";
+        assert loginBtn != null : "fx:id=\"loginBtn\" was not injected: check your FXML file 'loginFrame.fxml'.";
+        assert userIdTextField != null : "fx:id=\"userIdTextField\" was not injected: check your FXML file 'loginFrame.fxml'.";
+        assert AISFHSlable != null : "fx:id=\"AISFHSlable\" was not injected: check your FXML file 'loginFrame.fxml'.";
+        assert setBTN != null : "fx:id=\"setBTN\" was not injected: check your FXML file 'loginFrame.fxml'.";
+        assert ASHlable != null : "fx:id=\"ASHlable\" was not injected: check your FXML file 'loginFrame.fxml'.";
 
-		Main.client.controller = this;
-
-		userIdTextField.setText("101010101");
-		passwordTextField.setText("natan101");
+		//Main.client.controller = this;
 
 		CurrentUserID = "";
 		permission = "";
