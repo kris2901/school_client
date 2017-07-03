@@ -63,6 +63,7 @@ public class UserController implements IController
 	public static String CurrentUserID;
 
 	private String Access;
+	private String isLooged;
 
 	/**
 	 * login.
@@ -122,27 +123,36 @@ public class UserController implements IController
 	 */
 	void OpenMenu()
 	{
-		if (permission.equals("1"))
+		if(isLooged.equals("1"))
 		{
+			new Alert(AlertType.ERROR, "User Already Connected", ButtonType.OK).showAndWait();
+		}
+		else if (permission.equals("1"))
+		{
+			updateLogin();
 			UserWindow.createUserWindow((Stage) loginBtn.getScene().getWindow(), "SystemManagerMainWindow", getClass());
 		}
-		if (permission.equals("2"))
+		else if (permission.equals("2"))
 		{
+			updateLogin();
 			UserWindow.createUserWindow((Stage) loginBtn.getScene().getWindow(), "SchoolManagerMainWindow", getClass());
 		}
-		if (permission.equals("3"))
+		else if (permission.equals("3"))
 		{
+			updateLogin();
 			UserWindow.createUserWindow((Stage) loginBtn.getScene().getWindow(), "SecretaryMainWindow", getClass());
 		}
-		if (permission.equals("4"))
+		else if (permission.equals("4"))
 		{
+			updateLogin();
 			UserWindow.createUserWindow((Stage) loginBtn.getScene().getWindow(), "TeacherMainWindow", getClass());
 		}
-		if (permission.equals("5"))
+		else if (permission.equals("5"))
 		{
 			CheckPermisssion();
 			if (Access.equals("0"))
 			{
+				updateLogin();
 				UserWindow.createUserWindow((Stage) loginBtn.getScene().getWindow(), "Parent", getClass());
 			}
 			else
@@ -150,11 +160,34 @@ public class UserController implements IController
 				new Alert(AlertType.ERROR, "User Is Blocked", ButtonType.OK).showAndWait();
 			}
 		}
-		if (permission.equals("6"))
+		else if (permission.equals("6"))
 		{
+			updateLogin();
 			UserWindow.createUserWindow((Stage) loginBtn.getScene().getWindow(), "PupilMainWindow", getClass());
 		}
 
+	}
+	
+	void updateLogin()
+	{
+		ArrayList<String> data = new ArrayList<String>();
+		data.add("update connection");
+		data.add("update");
+		data.add("user");
+		data.add("isLogged");
+		data.add("1");
+		data.add("conditions");
+		data.add("userId");
+		data.add(CurrentUserID);
+		
+ 		try
+ 		{
+ 			Main.client.sendToServer(data);
+ 		}
+ 		catch (IOException e)
+ 		{
+ 			e.printStackTrace();
+ 		}
 	}
 
 	void CheckPermisssion()
@@ -193,6 +226,7 @@ public class UserController implements IController
 		CurrentUserID = "";
 		permission = "";
 		Access = "";
+		isLooged="";
 	}
 
 	/**
@@ -230,6 +264,7 @@ public class UserController implements IController
 					permission = map.get("permission");
 					CurrentUserID = map.get("userId");
 					Main.userId = CurrentUserID;
+					isLooged=map.get("isLogged");
 				}
 				OpenMenu();
 			}

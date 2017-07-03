@@ -1,6 +1,8 @@
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.Main;
@@ -128,6 +130,25 @@ public class TeacherMainWindowController implements IController  {
      */
     @FXML
     void LogOutTeacher(ActionEvent event) {
+    	
+		ArrayList<String> data = new ArrayList<String>();
+		data.add("update connection");
+		data.add("update");
+		data.add("user");
+		data.add("isLogged");
+		data.add("0");
+		data.add("conditions");
+		data.add("userId");
+		data.add(UserID);
+		
+ 		try
+ 		{
+ 			Main.client.sendToServer(data);
+ 		}
+ 		catch (IOException e)
+ 		{
+ 			e.printStackTrace();
+ 		}
     	UserWindow.closeUserWindow(getClass(), (Stage)TeacherMainLable.getScene().getWindow());
     }
 
