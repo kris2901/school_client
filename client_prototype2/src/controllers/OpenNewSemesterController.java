@@ -21,7 +21,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import ui.UserWindow;
 
-
 /**
  * The Class OpenNewSemesterController - this class is open new semester.
  */
@@ -71,10 +70,10 @@ public class OpenNewSemesterController implements IController
 	/** The Semester no.B. */
 	@FXML
 	private MenuItem SemesterB;
-	
-    /** The Status menu. */
-    @FXML
-    private MenuButton StatusMenu;
+
+	/** The Status menu. */
+	@FXML
+	private MenuButton StatusMenu;
 
 	/** The Check activities button. */
 	@FXML
@@ -91,10 +90,10 @@ public class OpenNewSemesterController implements IController
 	/** The Send button. */
 	@FXML
 	private Button SendButton;
-	
-    /** The Semester menu. */
-    @FXML
-    private MenuButton SemesterMenu;
+
+	/** The Semester menu. */
+	@FXML
+	private MenuButton SemesterMenu;
 
 	/** The Type label. */
 	@FXML
@@ -106,31 +105,31 @@ public class OpenNewSemesterController implements IController
 
 	/** The Activity ID. */
 	private ArrayList<String> ActivityID;
-	
+
 	/** The Semester ID. */
 	private ArrayList<String> SemID;
-	
+
 	/** The Type. */
 	private String Type;
-	
+
 	/** The Status. */
 	private String Status;
-	
+
 	/** The Semester ID. */
 	private String SemesterID;
-	
+
 	/** The Academic activity ID. */
 	private String AcademicActivityID;
-	
+
 	/** The Id flag. */
 	private int IdFlag;
-	
+
 	/** The Type flag. */
 	private int TypeFlag;
-	
+
 	/** The Status flag. */
 	private int StatusFlag;
-	
+
 	/** The Activity flag. */
 	private int ActivityFlag;
 
@@ -319,14 +318,6 @@ public class OpenNewSemesterController implements IController
 	@FXML
 	void CheckSemesterID(ActionEvent event)
 	{
-		/*try{
-    		Integer.parseInt(SemesterIdTextField.getText());
-    	}
-    	catch(NumberFormatException e){
-    		new Alert(AlertType.ERROR, "Enter a 6-digits number", ButtonType.OK).showAndWait();
-    		return;
-    	}*/
-		
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("Check Semester ID");
 		data.add("select");
@@ -352,7 +343,7 @@ public class OpenNewSemesterController implements IController
 	@FXML
 	void CheckAcademicActivities(ActionEvent event)
 	{
-		
+
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("Check Activity ID");
 		data.add("select field");
@@ -395,7 +386,7 @@ public class OpenNewSemesterController implements IController
 
 		ActivityID = new ArrayList<String>();
 		SemID = new ArrayList<String>();
-		
+
 		Type = "";
 		Status = "";
 		SemesterID = "";
@@ -406,9 +397,9 @@ public class OpenNewSemesterController implements IController
 		ActivityFlag = 0;
 	}
 
-    /**
-     * Handles the answer from the server according to the type of answer.
-     */   
+	/**
+	 * Handles the answer from the server according to the type of answer.
+	 */
 	@Override
 	public void handleAnswer(Object result)
 	{
@@ -423,6 +414,7 @@ public class OpenNewSemesterController implements IController
 
 		if (type.equals("Check Semester ID"))
 		{
+			int i;
 			for (String row : arr)
 			{
 				String[] cols = row.split(";");
@@ -439,9 +431,22 @@ public class OpenNewSemesterController implements IController
 				if (SemesterID.length() == 6)
 				{
 					IdFlag = 1;
-					new Alert(AlertType.INFORMATION, "Semester ID is correct and available.", ButtonType.OK)
-							.showAndWait();
-
+					for (i = 0; i < 6; i++)
+					{
+						if ((SemesterID.charAt(i) >= 'a' && SemesterID.charAt(i) <= 'z')
+								|| (SemesterID.charAt(i) >= 'A' && SemesterID.charAt(i) <= 'Z'))
+						{
+							IdFlag = 0;
+							new Alert(AlertType.ERROR, "Semester ID must contain digits only", ButtonType.OK)
+									.showAndWait();
+							break;
+						}
+					}
+					if (IdFlag == 1)
+					{
+						new Alert(AlertType.INFORMATION, "Semester ID is correct and available.", ButtonType.OK)
+								.showAndWait();
+					}
 				}
 				else
 				{
@@ -491,7 +496,7 @@ public class OpenNewSemesterController implements IController
 				new Alert(AlertType.INFORMATION, "All academic activities ID are correct.", ButtonType.OK)
 						.showAndWait();
 				ActivityID.clear();
-				for(i=0; i<activityID.length; i++)
+				for (i = 0; i < activityID.length; i++)
 				{
 					ActivityID.add(activityID[i]);
 				}

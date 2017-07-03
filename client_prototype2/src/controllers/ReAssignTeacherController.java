@@ -117,6 +117,11 @@ public class ReAssignTeacherController implements IController
 	/** The Old teacher ID. */
 	private String OldTeacherID;
 
+	private String RequestID;
+	private String TeacherID;
+	private String CourseID;
+	private String ClassID;
+
 	/**
 	 * Check request ID.
 	 *
@@ -125,13 +130,13 @@ public class ReAssignTeacherController implements IController
 	@FXML
 	void CheckRequestID(ActionEvent event)
 	{
-
+		RequestID = ExReTextField1.getText();
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("Check Existing Request ID");
 		data.add("select");
 		data.add("exceptional_request");
 		data.add("exceptonalRequestID");
-		data.add(ExReTextField1.getText());
+		data.add(RequestID);
 		data.add("type");
 		data.add("Reassign");
 
@@ -153,13 +158,13 @@ public class ReAssignTeacherController implements IController
 	@FXML
 	void CheckCourseID(ActionEvent event)
 	{
-
+		CourseID = CourseIDTextField.getText();
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("Check Course ID");
 		data.add("select");
 		data.add("courses");
 		data.add("courseId");
-		data.add(CourseIDTextField.getText());
+		data.add(CourseID);
 
 		try
 		{
@@ -222,12 +227,13 @@ public class ReAssignTeacherController implements IController
 	@FXML
 	void CheckClassID(ActionEvent event)
 	{
+		ClassID = ClassIDTextField.getText();
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("Check Class ID");
 		data.add("select");
 		data.add("class");
 		data.add("classId");
-		data.add(ClassIDTextField.getText());
+		data.add(ClassID);
 
 		try
 		{
@@ -258,13 +264,13 @@ public class ReAssignTeacherController implements IController
 	@FXML
 	void CheckTeacherID(ActionEvent event)
 	{
-
+		TeacherID = TeacherIdTextFieald.getText();
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("Check Teacher ID");
 		data.add("select");
 		data.add("teacher");
 		data.add("userID");
-		data.add(TeacherIdTextFieald.getText());
+		data.add(TeacherID);
 
 		try
 		{
@@ -471,7 +477,10 @@ public class ReAssignTeacherController implements IController
 		NewTeacherWorkHours = "";
 		OldTeacherWorkHours = "";
 		OldTeacherID = "";
-
+		RequestID = "";
+		TeacherID = "";
+		CourseID = "";
+		ClassID = "";
 	}
 
 	/**
@@ -494,38 +503,113 @@ public class ReAssignTeacherController implements IController
 
 		if (type.equals("Check Existing Request ID"))
 		{
-			if (arr.size() != 0)
+			int rIdFlag = 1;
+			if (arr.size() == 0)
 			{
-				ExFlag = 1;
-				new Alert(AlertType.INFORMATION, "Exceptional Request Has Found", ButtonType.OK).showAndWait();
+				ExFlag = 0;
+				int i;
+				for (i = 0; i < RequestID.length(); i++)
+				{
+					if ((RequestID.charAt(i) >= 'a' && RequestID.charAt(i) <= 'z')
+							|| (RequestID.charAt(i) >= 'A' && RequestID.charAt(i) <= 'Z'))
+					{
+						rIdFlag = 0;
+						new Alert(AlertType.ERROR, "Exceptional Request ID must contain digits only", ButtonType.OK)
+								.showAndWait();
+						break;
+					}
+				}
+				if (((RequestID.length() > 4) || (RequestID.length() < 4)) && (rIdFlag == 1))
+				{
+					new Alert(AlertType.ERROR, "Exceptional Request ID must contain 4 digits.", ButtonType.OK)
+							.showAndWait();
+				}
+				else
+				{
+					if (rIdFlag == 1)
+					{
+						new Alert(AlertType.ERROR, "Exceptional Request ID has not found.", ButtonType.OK)
+								.showAndWait();
+					}
+				}
 			}
 			else
 			{
-
-				new Alert(AlertType.ERROR, "Exceptional Request Not Found", ButtonType.OK).showAndWait();
+				ExFlag = 1;
+				new Alert(AlertType.INFORMATION, "Exceptional Request ID has found.", ButtonType.OK).showAndWait();
 			}
 		}
 
 		if (type.equals("Check Class ID"))
 		{
-			if (arr.size() != 0)
+			int clIdFlag = 1;
+			if (arr.size() == 0)
 			{
-				classIDF = 1;
-				new Alert(AlertType.INFORMATION, "Class ID Has Found", ButtonType.OK).showAndWait();
+				classIDF = 0;
+				int i;
+				for (i = 0; i < ClassID.length(); i++)
+				{
+					if ((ClassID.charAt(i) >= 'a' && ClassID.charAt(i) <= 'z')
+							|| (ClassID.charAt(i) >= 'A' && ClassID.charAt(i) <= 'Z'))
+					{
+						clIdFlag = 0;
+						new Alert(AlertType.ERROR, "Class ID must contain digits only", ButtonType.OK).showAndWait();
+						break;
+					}
+				}
+				if (((ClassID.length() > 9) || (ClassID.length() < 9)) && (clIdFlag == 1))
+				{
+					new Alert(AlertType.ERROR, "Class ID must contain 9 digits.", ButtonType.OK).showAndWait();
+				}
+				else
+				{
+					if (clIdFlag == 1)
+					{
+						new Alert(AlertType.ERROR, "Class ID has not found.", ButtonType.OK).showAndWait();
+					}
+				}
 			}
 			else
 			{
-
-				new Alert(AlertType.ERROR, "Class ID Not Found", ButtonType.OK).showAndWait();
+				classIDF = 1;
+				new Alert(AlertType.INFORMATION, "Class ID has found.", ButtonType.OK).showAndWait();
 			}
 		}
 
 		if (type.equals("Check Course ID"))
 		{
-			if (arr.size() != 0)
+			int cIdFlag = 1;
+			if (arr.size() == 0)
+			{
+				courseIDF = 0;
+				int i;
+				for (i = 0; i < CourseID.length(); i++)
+				{
+					if ((CourseID.charAt(i) >= 'a' && CourseID.charAt(i) <= 'z')
+							|| (CourseID.charAt(i) >= 'A' && CourseID.charAt(i) <= 'Z'))
+					{
+						cIdFlag = 0;
+						new Alert(AlertType.ERROR, "Course ID must contain digits only", ButtonType.OK).showAndWait();
+						break;
+					}
+				}
+				if (((CourseID.length() > 5) || (CourseID.length() < 5)) && (cIdFlag == 1))
+				{
+					new Alert(AlertType.ERROR, "Course ID must contain 5 digits.", ButtonType.OK).showAndWait();
+				}
+				else
+				{
+
+					if (cIdFlag == 1)
+					{
+						new Alert(AlertType.ERROR, "Course ID has not found.", ButtonType.OK).showAndWait();
+					}
+				}
+			}
+			else
 			{
 				courseIDF = 1;
-				new Alert(AlertType.INFORMATION, "Course ID Has Found", ButtonType.OK).showAndWait();
+				new Alert(AlertType.INFORMATION, "Course ID has found.", ButtonType.OK).showAndWait();
 				for (String row : arr)
 				{
 					String[] cols = row.split(";");
@@ -535,23 +619,44 @@ public class ReAssignTeacherController implements IController
 						String[] field = col.split("=");
 						map.put(field[0], field[1]);
 					}
-
 					courseHours = map.get("weeklyStudyHours");
 				}
-			}
-			else
-			{
-
-				new Alert(AlertType.ERROR, "Course ID Not Found", ButtonType.OK).showAndWait();
 			}
 		}
 
 		if (type.equals("Check Teacher ID"))
 		{
-			if (arr.size() != 0)
+			int pIdFlag = 1;
+			if (arr.size() == 0)
+			{
+				teacherIDF = 0;
+				int i;
+				for (i = 0; i < TeacherID.length(); i++)
+				{
+					if ((TeacherID.charAt(i) >= 'a' && TeacherID.charAt(i) <= 'z')
+							|| (TeacherID.charAt(i) >= 'A' && TeacherID.charAt(i) <= 'Z'))
+					{
+						pIdFlag = 0;
+						new Alert(AlertType.ERROR, "Teacher ID must contain digits only", ButtonType.OK).showAndWait();
+						break;
+					}
+				}
+				if (((TeacherID.length() > 9) || (TeacherID.length() < 9)) && (pIdFlag == 1))
+				{
+					new Alert(AlertType.ERROR, "Teacher ID must contain 9 digits.", ButtonType.OK).showAndWait();
+				}
+				else
+				{
+					if (pIdFlag == 1)
+					{
+						new Alert(AlertType.ERROR, "Teacher ID has not found.", ButtonType.OK).showAndWait();
+					}
+				}
+			}
+			else
 			{
 				teacherIDF = 1;
-				new Alert(AlertType.INFORMATION, "Teacher  ID Has Found", ButtonType.OK).showAndWait();
+				new Alert(AlertType.INFORMATION, "Teacher ID has found.", ButtonType.OK).showAndWait();
 				for (String row : arr)
 				{
 					String[] cols = row.split(";");
@@ -564,11 +669,6 @@ public class ReAssignTeacherController implements IController
 
 					NewTeacherWorkHours = map.get("workHours");
 				}
-			}
-			else
-			{
-
-				new Alert(AlertType.ERROR, "Teacher ID Not Found", ButtonType.OK).showAndWait();
 			}
 		}
 

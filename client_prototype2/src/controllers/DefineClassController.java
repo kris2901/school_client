@@ -83,22 +83,22 @@ public class DefineClassController implements IController
 
 	/** The array of class ID. */
 	private ArrayList<String> classID;
-	
+
 	/** The array of class name. */
 	private ArrayList<String> className;
-	
+
 	/** The ClassID. */
 	private String ClassID;
-	
+
 	/** The Class NAME. */
 	private String ClassNAME;
-	
+
 	/** The Capacity. */
 	private String Capacity;
-	
+
 	/** The Class Name flag. */
 	private int ClassNameF;
-	
+
 	/** The Class ID Flag. */
 	private int ClassIDF;
 
@@ -132,30 +132,56 @@ public class DefineClassController implements IController
 	@FXML
 	void DefineClass(ActionEvent event)
 	{
-		try{
-    		Integer.parseInt(MaximumPupilInClassTextField.getText());
-    	}
-    	catch(NumberFormatException e){
-    		new Alert(AlertType.ERROR, "The capacity must be a number!", ButtonType.OK).showAndWait();
-    		return;
-    	}
+		String capacity = MaximumPupilInClassTextField.getText();
+		int charFLAG = 0;
 
-		if (MaximumPupilInClassTextField.getText().startsWith("-") || MaximumPupilInClassTextField.getText().equals("0")
-				|| MaximumPupilInClassTextField.getText().isEmpty())
+		int i;
+		for (i = 0; i < capacity.length(); i++)
 		{
-			new Alert(AlertType.ERROR, "Wrong Capacity", ButtonType.OK).showAndWait();
-			return;
+			if ((capacity.charAt(i) >= 'a' && capacity.charAt(i) <= 'z')
+					|| (capacity.charAt(i) >= 'A' && capacity.charAt(i) <= 'Z'))
+			{
+				charFLAG = 1;
+				new Alert(AlertType.ERROR, "The capacity must be a number!", ButtonType.OK).showAndWait();
+				break;
+			}
 		}
-		else if ((ClassIDF == 1) && (ClassIDF == 1)&& ClassNAME.equals(ClassNameTextField.getText()) && ClassID.equals(ClassIdTextField.getText()))
+		if (charFLAG == 0)
 		{
-			InsertNewClass();
+			if (capacity.startsWith("-") || capacity.equals("0") || capacity.isEmpty())
+			{
+				new Alert(AlertType.ERROR, "Wrong class capacity was entered.", ButtonType.OK).showAndWait();
+				return;
+			}
+			else if ((ClassIDF == 1) && (ClassNameF == 1) && ClassNAME.equals(ClassNameTextField.getText())
+					&& ClassID.equals(ClassIdTextField.getText()))
+			{
+				InsertNewClass();
+			}
+			else if (ClassIDF == 0)
+			{
+				if (classID.isEmpty())
+				{
+					new Alert(AlertType.ERROR, "Class ID field is missing.", ButtonType.OK).showAndWait();
+				}
+				else
+				{
+					new Alert(AlertType.ERROR, "Please enter correct class ID again.", ButtonType.OK).showAndWait();
+				}
+			}
+			else if (ClassNameF == 0)
+			{
+				if (className.isEmpty())
+				{
+					new Alert(AlertType.ERROR, "Class Name field is missing.", ButtonType.OK).showAndWait();
+				}
+				else
+				{
+					new Alert(AlertType.ERROR, "Please enter correct class name again.", ButtonType.OK).showAndWait();
+				}
+			}
 		}
-		else if(ClassIDF == 0 || ClassIDF == 0)
-			new Alert(AlertType.ERROR, "Missing Fields", ButtonType.OK).showAndWait();
-		else {
-			new Alert(AlertType.ERROR, "Check The ClassID or ClassName Field", ButtonType.OK).showAndWait();
-		}
- 
+
 	}
 
 	/**
@@ -208,7 +234,6 @@ public class DefineClassController implements IController
 	@FXML
 	void CheckAvailability2(ActionEvent event)
 	{
-
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("Class Name");
 		data.add("select");
@@ -247,20 +272,13 @@ public class DefineClassController implements IController
 	@FXML
 	void CheckAvailability1(ActionEvent event)
 	{
-		try{
-    		Integer.parseInt(ClassIdTextField.getText());
-    	}
-    	catch(NumberFormatException e){
-    		new Alert(AlertType.ERROR, "Please enter 4-digit number", ButtonType.OK).showAndWait();
-    		return;
-    	}
+		ClassID = ClassIdTextField.getText();
 
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("Class ID");
 		data.add("select");
 		data.add("class");
 		data.add("classId");
-		ClassID = ClassIdTextField.getText();
 		data.add(ClassID);
 
 		try
@@ -294,7 +312,7 @@ public class DefineClassController implements IController
 
 		Main.client.controller = this;
 		Main.stack.push("SecretaryDefineClass");
-		
+
 		classID = new ArrayList<String>();
 		className = new ArrayList<String>();
 		ClassNAME = "";
@@ -305,9 +323,9 @@ public class DefineClassController implements IController
 
 	}
 
-    /**
-     * Handles the answer from the server according to the type of answer.
-     */   
+	/**
+	 * Handles the answer from the server according to the type of answer.
+	 */
 	@Override
 	public void handleAnswer(Object msg)
 	{
@@ -337,20 +355,37 @@ public class DefineClassController implements IController
 			}
 			if (!classID.contains(ClassID))
 			{
-				if (ClassID.length() == 4)
+				int charFLAG = 0;
+				int i;
+				for (i = 0; i < ClassID.length(); i++)
 				{
-					new Alert(AlertType.INFORMATION, "Class ID is correct and available.", ButtonType.OK).showAndWait();
-					ClassIDF = 1;
-
+					if ((ClassID.charAt(i) >= 'a' && ClassID.charAt(i) <= 'z')
+							|| (ClassID.charAt(i) >= 'A' && ClassID.charAt(i) <= 'Z'))
+					{
+						charFLAG = 1;
+						ClassIDF = 0;
+						new Alert(AlertType.ERROR, "Class ID must contain digits only!", ButtonType.OK).showAndWait();
+						break;
+					}
 				}
-				else
+				if (charFLAG == 0)
 				{
-					new Alert(AlertType.ERROR, "Class ID should have 4 digits.", ButtonType.OK).showAndWait();
+					if (ClassID.length() == 4)
+					{
+						ClassIDF = 1;
+						new Alert(AlertType.INFORMATION, "Class ID is correct and available.", ButtonType.OK)
+								.showAndWait();
+					}
+					else
+					{
+						ClassIDF = 0;
+						new Alert(AlertType.ERROR, "Class ID must contain 4 digits.", ButtonType.OK).showAndWait();
+					}
 				}
 			}
-
 			else
 			{
+				ClassIDF = 0;
 				new Alert(AlertType.ERROR, "This class ID already exists.", ButtonType.OK).showAndWait();
 			}
 		}
@@ -369,14 +404,12 @@ public class DefineClassController implements IController
 			}
 			if (!className.contains(ClassNAME))
 			{
-
-				new Alert(AlertType.INFORMATION, "Class name is correct and available.", ButtonType.OK).showAndWait();
 				ClassNameF = 1;
-
+				new Alert(AlertType.INFORMATION, "Class name is correct and available.", ButtonType.OK).showAndWait();
 			}
-
 			else
 			{
+				ClassNameF = 0;
 				new Alert(AlertType.ERROR, "This class name already exists.", ButtonType.OK).showAndWait();
 			}
 		}

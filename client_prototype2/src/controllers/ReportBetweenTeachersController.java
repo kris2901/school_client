@@ -24,7 +24,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import ui.UserWindow;
 
-
 /**
  * The Class ReportBetweenTeachersController - this class present grade report between classes of one teacher.
  */
@@ -89,16 +88,16 @@ public class ReportBetweenTeachersController implements IController
 
 	/** The Semester ID. */
 	private ArrayList<String> SemesterID;
-	
+
 	/** The Class. */
 	private String Class;
-	
+
 	/** The Selected class. */
 	private String SelectedClass;
-	
+
 	/** The Semester FLAG. */
 	private int SemesterFLAG;
-	
+
 	/** The Class FLAG. */
 	private int ClassFLAG;
 
@@ -261,9 +260,9 @@ public class ReportBetweenTeachersController implements IController
 		loadClasses();
 	}
 
-    /**
-     * Handles the answer from the server according to the type of answer.
-     */   
+	/**
+	 * Handles the answer from the server according to the type of answer.
+	 */
 	@Override
 	public void handleAnswer(Object result)
 	{
@@ -279,21 +278,20 @@ public class ReportBetweenTeachersController implements IController
 		if (type.equals("histogram 2"))
 		{
 			XYChart.Series<String, Double> series = new XYChart.Series<>();
-			
+
 			for (String row : arr)
 			{
 				ArrayList<String> values = new ArrayList<>();
 				String[] cols = row.split(";");
-				
+
 				for (String col : cols)
 				{
 					String[] field = col.split("=");
 					values.add(field[1]);
 				}
-				series.getData().add(new XYChart.Data<>(values.get(0),Double.parseDouble(values.get(1))));
+				series.getData().add(new XYChart.Data<>(values.get(0), Double.parseDouble(values.get(1))));
 			}
-			
-			
+
 			ReportBarChart.getData().add(series);
 		}
 
@@ -333,25 +331,41 @@ public class ReportBetweenTeachersController implements IController
 			String str = SemesterTextField.getText();
 			String[] semesterID = str.split(" ");
 			int SemesterFlag = 0;
-			if (semesterID.length > 4 || semesterID.length < 4)
+			int charFLAG = 0;
+			for (i = 0; i < semesterID.length; i++)
 			{
-				new Alert(AlertType.ERROR, "You can only choose 4 semesters for the report", ButtonType.OK)
-						.showAndWait();
-			}
-			else
-			{
-				for (i = 0; i < semesterID.length; i++)
+				String semID = semesterID[i];
+				if ((semID.charAt(i) >= 'a' && semID.charAt(i) <= 'z')
+						|| (semID.charAt(i) >= 'A' && semID.charAt(i) <= 'Z'))
 				{
-					if (!SemesterID.contains(semesterID[i]))
+					new Alert(AlertType.ERROR, "You can only enter digits for semester ID.", ButtonType.OK)
+							.showAndWait();
+					charFLAG = 1;
+					break;
+				}
+			}
+			if (charFLAG == 0)
+			{
+				if (semesterID.length > 4 || semesterID.length < 4)
+				{
+					new Alert(AlertType.ERROR, "You have to enter 4 semesters ID for this report", ButtonType.OK)
+							.showAndWait();
+				}
+				else
+				{
+					for (i = 0; i < semesterID.length; i++)
 					{
-						SemesterFlag = 0;
-						new Alert(AlertType.ERROR, "Semester ID " + semesterID[i] + " does not exist.", ButtonType.OK)
-								.showAndWait();
-						break;
-					}
-					else
-					{
-						SemesterFlag++;
+						if (!SemesterID.contains(semesterID[i]))
+						{
+							SemesterFlag = 0;
+							new Alert(AlertType.ERROR, "Semester ID " + semesterID[i] + " does not exist.",
+									ButtonType.OK).showAndWait();
+							break;
+						}
+						else
+						{
+							SemesterFlag++;
+						}
 					}
 				}
 			}

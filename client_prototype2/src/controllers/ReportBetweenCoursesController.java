@@ -330,25 +330,42 @@ public class ReportBetweenCoursesController implements IController
 			String str = SemesterTextField.getText();
 			String[] semesterID = str.split(" ");
 			int SemesterFlag = 0;
-			if (semesterID.length > 4 || semesterID.length < 4)
+			int charFLAG = 0;
+			for (i = 0; i < semesterID.length; i++)
 			{
-				new Alert(AlertType.ERROR, "You can only choose 4 semesters for the report", ButtonType.OK)
-						.showAndWait();
-			}
-			else
-			{
-				for (i = 0; i < semesterID.length; i++)
+				String semID = semesterID[i];
+				if ((semID.charAt(i) >= 'a' && semID.charAt(i) <= 'z')
+						|| (semID.charAt(i) >= 'A' && semID.charAt(i) <= 'Z'))
 				{
-					if (!SemesterID.contains(semesterID[i]))
+					new Alert(AlertType.ERROR, "You can only enter digits for semester ID.", ButtonType.OK)
+							.showAndWait();
+					charFLAG = 1;
+					break;
+				}
+			}
+			if (charFLAG == 0)
+			{
+				if (semesterID.length > 4 || semesterID.length < 4)
+				{
+					new Alert(AlertType.ERROR, "You have to enter 4 semesters ID for this report", ButtonType.OK)
+							.showAndWait();
+				}
+
+				else
+				{
+					for (i = 0; i < semesterID.length; i++)
 					{
-						SemesterFlag = 0;
-						new Alert(AlertType.ERROR, "Semester ID " + semesterID[i] + " does not exist.", ButtonType.OK)
-								.showAndWait();
-						break;
-					}
-					else
-					{
-						SemesterFlag++;
+						if (!SemesterID.contains(semesterID[i]))
+						{
+							SemesterFlag = 0;
+							new Alert(AlertType.ERROR, "Semester ID " + semesterID[i] + " does not exist.",
+									ButtonType.OK).showAndWait();
+							break;
+						}
+						else
+						{
+							SemesterFlag++;
+						}
 					}
 				}
 			}

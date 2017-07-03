@@ -31,7 +31,6 @@ import ui.UserWindow;
  */
 public class ReportBetweenClassesController implements IController
 {
-
 	/** The resources. */
 	@FXML
 	private ResourceBundle resources;
@@ -86,16 +85,16 @@ public class ReportBetweenClassesController implements IController
 
 	/** The Semester ID. */
 	private ArrayList<String> SemesterID;
-	
+
 	/** The Teacher. */
 	private String Teacher;
-	
+
 	/** The Selected teacher. */
 	private String SelectedTeacher;
-	
+
 	/** The Semester FLAG. */
 	private int SemesterFLAG;
-	
+
 	/** The Teacher FLAG. */
 	private int TeacherFLAG;
 
@@ -183,7 +182,7 @@ public class ReportBetweenClassesController implements IController
 			SelectedTeacher = Teacher.substring(0, 9);
 			if (SelectedTeacher == null)
 				return;
-			
+
 			ReportBarChart.getData().clear();
 			ArrayList<String> data = new ArrayList<String>();
 			data.add("histogram 1"); // for answer
@@ -258,9 +257,9 @@ public class ReportBetweenClassesController implements IController
 
 	}
 
-    /**
-     * Handles the answer from the server according to the type of answer.
-     */   
+	/**
+	 * Handles the answer from the server according to the type of answer.
+	 */
 	@Override
 	public void handleAnswer(Object result)
 	{
@@ -273,26 +272,26 @@ public class ReportBetweenClassesController implements IController
 
 		ArrayList<String> arr = (ArrayList<String>) result;
 		String type = arr.remove(0);
-		
+
 		if (type.equals("histogram 1"))
 		{
 			XYChart.Series<String, Double> series = new XYChart.Series<>();
-			
+
 			for (String row : arr)
 			{
 				ArrayList<String> values = new ArrayList<>();
 				String[] cols = row.split(";");
-				
+
 				for (String col : cols)
 				{
 					String[] field = col.split("=");
 					values.add(field[1]);
 				}
-				series.getData().add(new XYChart.Data<>(values.get(0),Double.parseDouble(values.get(1))));
+				series.getData().add(new XYChart.Data<>(values.get(0), Double.parseDouble(values.get(1))));
 			}
-			
+
 			ReportBarChart.getData().add(series);
-			
+
 		}
 		if (type.equals("Teacher List"))
 		{
@@ -331,25 +330,43 @@ public class ReportBetweenClassesController implements IController
 			String str = SemesterTextField.getText();
 			String[] semesterID = str.split(" ");
 			int SemesterFlag = 0;
-			if (semesterID.length > 4 || semesterID.length < 4)
+			int charFLAG = 0;
+			for (i = 0; i < semesterID.length; i++)
 			{
-				new Alert(AlertType.ERROR, "You can only choose 4 semesters for the report", ButtonType.OK)
-						.showAndWait();
-			}
-			else
-			{
-				for (i = 0; i < semesterID.length; i++)
+				String semID = semesterID[i];
+				if ((semID.charAt(i) >= 'a' && semID.charAt(i) <= 'z')
+						|| (semID.charAt(i) >= 'A' && semID.charAt(i) <= 'Z'))
 				{
-					if (!SemesterID.contains(semesterID[i]))
+					new Alert(AlertType.ERROR, "You can only enter digits for semester ID.", ButtonType.OK)
+							.showAndWait();
+					charFLAG = 1;
+					break;
+
+				}
+			}
+			if (charFLAG == 0)
+			{
+				if (semesterID.length > 4 || semesterID.length < 4)
+				{
+					new Alert(AlertType.ERROR, "You have to enter 4 semesters ID for this report", ButtonType.OK)
+							.showAndWait();
+				}
+
+				else
+				{
+					for (i = 0; i < semesterID.length; i++)
 					{
-						SemesterFlag = 0;
-						new Alert(AlertType.ERROR, "Semester ID " + semesterID[i] + " does not exist.", ButtonType.OK)
-								.showAndWait();
-						break;
-					}
-					else
-					{
-						SemesterFlag++;
+						if (!SemesterID.contains(semesterID[i]))
+						{
+							SemesterFlag = 0;
+							new Alert(AlertType.ERROR, "Semester ID " + semesterID[i] + " does not exist.",
+									ButtonType.OK).showAndWait();
+							break;
+						}
+						else
+						{
+							SemesterFlag++;
+						}
 					}
 				}
 			}
