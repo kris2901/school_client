@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="chooseCourseCB" onDragDetected="#chooseCourse" prefHeight="505.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TeacherDownloadSolutionController">
+   <children>
+      <Label fx:id="CheckPupilAssignment" layoutX="21.0" layoutY="23.0" text="Check Pupil's Assignment" underline="true">
+         <font>
+            <Font name="Bookman Old Style Bold" size="34.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="ChooseCourseCB" layoutX="43.0" layoutY="102.0" onAction="#ChooseCourse" prefHeight="35.0" prefWidth="239.0" promptText="Choose Course" />
+      <ComboBox fx:id="ChooseAssignmentCB" layoutX="43.0" layoutY="178.0" onAction="#ChooseAssignment" prefHeight="35.0" prefWidth="239.0" promptText="Choose Assignment" />
+      <Button fx:id="DownloadButton" layoutX="139.0" layoutY="350.0" mnemonicParsing="false" onAction="#DownloadSolution" prefHeight="31.0" prefWidth="195.0" text="Download Solution" />
+      <Button fx:id="BackToMenuButton" layoutX="211.0" layoutY="401.0" mnemonicParsing="false" onAction="#BackToMenu" text="Back" />
+      <ComboBox fx:id="ChoosePupilCB" layoutX="43.0" layoutY="253.0" onAction="#ChoosePupil" prefHeight="35.0" prefWidth="239.0" promptText="Choose Pupil" />
+   </children>
+</AnchorPane>

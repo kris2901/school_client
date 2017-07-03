@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.media.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PupilAssignmentController">
+   <children>
+      <Button fx:id="UploadButton" layoutX="292.0" layoutY="403.0" mnemonicParsing="false" onAction="#UploadSolutionFile" prefHeight="33.0" prefWidth="71.0" text="Upload" />
+      <Label alignment="CENTER" layoutY="1.0" prefHeight="151.0" prefWidth="695.0" text="Pupil Assignment Solution Upload" textAlignment="CENTER" underline="true">
+         <font>
+            <Font name="Bodoni MT Black" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="AssignmentTextField" layoutX="34.0" layoutY="239.0" prefHeight="21.0" prefWidth="161.0" text="Choose Assignment: " />
+      <Label fx:id="UploadTextField" layoutX="34.0" layoutY="375.0" prefHeight="21.0" prefWidth="208.0" text="Upload Assignment Solution" />
+      <ProgressIndicator fx:id="ProgressUpload" layoutX="44.0" layoutY="451.0" prefHeight="63.0" prefWidth="71.0" progress="0.0" />
+      <Label fx:id="CourseTextField" layoutX="34.0" layoutY="142.0" prefHeight="21.0" prefWidth="145.0" text="Choose Course:" />
+      <Hyperlink fx:id="FileHyperLink" layoutX="36.0" layoutY="405.0" onAction="#ChooseSolutionFile" prefHeight="29.0" prefWidth="102.0" text="Choose File" />
+      <Button fx:id="BackButton" layoutX="410.0" layoutY="403.0" mnemonicParsing="false" onAction="#BackToPupilMenu" prefHeight="33.0" prefWidth="71.0" text="Back" />
+      <ComboBox fx:id="chooseCourseCB" layoutX="32.0" layoutY="177.0" onAction="#chooseCourse" prefHeight="31.0" prefWidth="200.0" />
+      <ComboBox fx:id="chooseAssCB" layoutX="32.0" layoutY="278.0" onAction="#chooseAss" prefHeight="31.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>
