@@ -1,9 +1,12 @@
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.Main;
+import application.UserController;
 import interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,6 +39,8 @@ public class SystemManagerMainWindowController implements IController {
     /** The Log out button. */
     @FXML
     private Button LogOutButton;
+    
+    private  String UserID;
 
     /**
      * Adds the course.
@@ -65,7 +70,26 @@ public class SystemManagerMainWindowController implements IController {
      * @param event - Log out system manager
      */
     @FXML
-    void LogOutSystemManager(ActionEvent event) {    	
+    void LogOutSystemManager(ActionEvent event) {  
+    	
+		ArrayList<String> data = new ArrayList<String>();
+		data.add("update connection");
+		data.add("update");
+		data.add("user");
+		data.add("isLogged");
+		data.add("0");
+		data.add("conditions");
+		data.add("userId");
+		data.add(UserID);
+		
+ 		try
+ 		{
+ 			Main.client.sendToServer(data);
+ 		}
+ 		catch (IOException e)
+ 		{
+ 			e.printStackTrace();
+ 		}
     	UserWindow.closeUserWindow(getClass(), (Stage) LogOutButton.getScene().getWindow());
     }
 
@@ -79,7 +103,9 @@ public class SystemManagerMainWindowController implements IController {
         assert LogOutButton != null : "fx:id=\"LogOutButton\" was not injected: check your FXML file 'SystemManagerMainWindow.fxml'.";
 
         Main.client.controller=this;
-        Main.stack.push("SystemManagerMainWindow");       
+        Main.stack.push("SystemManagerMainWindow");    
+        
+        UserID=UserController.CurrentUserID;
     }
 
     /**
