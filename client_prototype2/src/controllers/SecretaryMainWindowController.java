@@ -1,6 +1,8 @@
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.Main;
@@ -176,6 +178,25 @@ public class SecretaryMainWindowController implements IController{
      */
     @FXML
     void SecretaryLogOut(ActionEvent event) {
+    	
+		ArrayList<String> data = new ArrayList<String>();
+		data.add("update connection");
+		data.add("update");
+		data.add("user");
+		data.add("isLogged");
+		data.add("0");
+		data.add("conditions");
+		data.add("userId");
+		data.add("404040404");
+		
+ 		try
+ 		{
+ 			Main.client.sendToServer(data);
+ 		}
+ 		catch (IOException e)
+ 		{
+ 			e.printStackTrace();
+ 		}
 		UserWindow.closeUserWindow(getClass(), (Stage) SecretaryMenuLable.getScene().getWindow());
     }
 
