@@ -77,7 +77,26 @@ public class PupilMainWindow implements IController{
      * @param event - pupil log out
      */
     @FXML
-    void PupilLogOut(ActionEvent event) {	
+    void PupilLogOut(ActionEvent event) {
+    	
+		ArrayList<String> data = new ArrayList<String>();
+		data.add("update connection");
+		data.add("update");
+		data.add("user");
+		data.add("isLogged");
+		data.add("0");
+		data.add("conditions");
+		data.add("userId");
+		data.add(UserID);
+		
+ 		try
+ 		{
+ 			Main.client.sendToServer(data);
+ 		}
+ 		catch (IOException e)
+ 		{
+ 			e.printStackTrace();
+ 		}
     	UserWindow.closeUserWindow(getClass(), (Stage)PupilMenuLable.getScene().getWindow());
     }
     
