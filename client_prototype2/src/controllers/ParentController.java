@@ -1,8 +1,10 @@
 package controllers;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
 import application.Main;
 import application.UserController;
@@ -21,6 +23,11 @@ import ui.UserWindow;
  */
 public class ParentController implements IController
 {
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
 
 	/** The Parent label. */
 	@FXML
@@ -33,6 +40,9 @@ public class ParentController implements IController
 	/** The Choose child combo box. */
 	@FXML
 	private ComboBox<String> ChooseChildComboBox;
+	
+    @FXML
+    private Label ChooseLabel;
 
 	/** The all pupils. */
 	private HashMap<String, HashMap<String, String>> allPupils;
@@ -51,8 +61,7 @@ public class ParentController implements IController
 		assert ParentLabel != null : "fx:id=\"ParentLabel\" was not injected: check your FXML file 'Parent.fxml'.";
 		assert BackButton != null : "fx:id=\"BackButton\" was not injected: check your FXML file 'Parent.fxml'.";
 		assert ChooseChildComboBox != null : "fx:id=\"ChooseChildComboBox\" was not injected: check your FXML file 'Parent.fxml'.";
-
-		//Main.stack.push("Parent");
+	    assert ChooseLabel != null : "fx:id=\"ChooseLabel\" was not injected: check your FXML file 'Parent.fxml'.";
 
 		UserID=UserController.CurrentUserID;
 		Main.client.controller = this;
