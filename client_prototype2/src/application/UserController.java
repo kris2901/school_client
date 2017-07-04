@@ -150,15 +150,7 @@ public class UserController implements IController
 		else if (permission.equals("5"))
 		{
 			CheckPermisssion();
-			if (Access.equals("0"))
-			{
-				updateLogin();
-				UserWindow.createUserWindow((Stage) loginBtn.getScene().getWindow(), "Parent", getClass());
-			}
-			else
-			{
-				new Alert(AlertType.ERROR, "User Is Blocked", ButtonType.OK).showAndWait();
-			}
+			
 		}
 		else if (permission.equals("6"))
 		{
@@ -205,6 +197,19 @@ public class UserController implements IController
 		catch (IOException e)
 		{
 			e.printStackTrace();
+		}
+	}
+	
+	void cheackIfParentBlock()
+	{
+		if (Access.equals("0"))
+		{
+			updateLogin();
+			UserWindow.createUserWindow((Stage) loginBtn.getScene().getWindow(), "Parent", getClass());
+		}
+		else
+		{
+			new Alert(AlertType.ERROR, "User Is Blocked", ButtonType.OK).showAndWait();
 		}
 	}
 
@@ -283,6 +288,8 @@ public class UserController implements IController
 				}
 				Access = map.get("ParentAccess");
 			}
+			
+			cheackIfParentBlock();
 		}
 	}
 }
