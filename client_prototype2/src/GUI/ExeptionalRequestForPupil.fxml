@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="538.0" prefWidth="824.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PupilExeptionalRequestController">
+<AnchorPane prefHeight="602.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PupilExeptionalRequestController">
    <children>
       <Label fx:id="PupilExeptionalLable" text="Pupil Exceptional Request Window" underline="true">
          <font>
@@ -27,9 +27,9 @@
         </items>
       </MenuButton>
       <Label fx:id="OperationLable" layoutX="27.0" layoutY="256.0" prefHeight="26.0" prefWidth="270.0" text="Choose Your Operation:" />
-      <Button fx:id="SendButton" layoutX="99.0" layoutY="465.0" mnemonicParsing="false" onAction="#SendToSchoolManager" prefHeight="36.0" prefWidth="323.0" text="Send Exceptional Requset To School Manager" />
-      <Button fx:id="BackButton" layoutX="540.0" layoutY="465.0" mnemonicParsing="false" onAction="#BackToMenu" prefHeight="36.0" prefWidth="165.0" text="Back To Menu" />
-      <ComboBox fx:id="ChooseClassCB" layoutX="325.0" layoutY="379.0" onAction="#ChooseClass" prefHeight="36.0" prefWidth="180.0" promptText="Choose:" />
-      <Label fx:id="ChooseClassLabel" layoutX="327.0" layoutY="345.0" prefHeight="19.0" prefWidth="189.0" text="Choose Class ID From The List:" />
+      <Button fx:id="SendButton" layoutX="279.0" layoutY="531.0" mnemonicParsing="false" onAction="#SendToSchoolManager" prefHeight="36.0" prefWidth="323.0" text="Send Exceptional Requset To School Manager" />
+      <Button fx:id="BackButton" layoutX="654.0" layoutY="531.0" mnemonicParsing="false" onAction="#BackToMenu" prefHeight="36.0" prefWidth="165.0" text="Back To Menu" />
+      <ComboBox fx:id="ChooseClassCB" layoutX="27.0" layoutY="465.0" onAction="#ChooseClass" prefHeight="36.0" prefWidth="165.0" promptText="Choose:" />
+      <Label fx:id="ChooseClassLabel" layoutX="27.0" layoutY="433.0" prefHeight="21.0" prefWidth="225.0" text="Choose Class ID From The List:" />
    </children>
 </AnchorPane>
