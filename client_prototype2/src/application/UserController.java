@@ -62,7 +62,7 @@ public class UserController implements IController
 	/** The current user id. */
 	public static String CurrentUserID;
 
-	private ArrayList<String> Access;
+	private String Access;
 	private String isLooged;
 
 	/**
@@ -202,21 +202,15 @@ public class UserController implements IController
 	
 	void cheackIfParentBlock()
 	{
-		int i;
-		for(i=0;i<Access.size();i++)
+		if (Access.equals("0"))
 		{
-			if(Access.get(i).equals("1"))
-			{
-				new Alert(AlertType.ERROR, "User Is Blocked", ButtonType.OK).showAndWait();
-				break;
-			}
+			updateLogin();
+			UserWindow.createUserWindow((Stage) loginBtn.getScene().getWindow(), "Parent", getClass());
 		}
-		if(Access.size()==i)
+		else
 		{
-		updateLogin();
-		UserWindow.createUserWindow((Stage) loginBtn.getScene().getWindow(), "Parent", getClass());
+			new Alert(AlertType.ERROR, "User Is Blocked", ButtonType.OK).showAndWait();
 		}
-
 	}
 
 	/**
@@ -236,7 +230,7 @@ public class UserController implements IController
 
 		CurrentUserID = "";
 		permission = "";
-		Access = new ArrayList<>();
+		Access = "";
 		isLooged="";
 	}
 
@@ -292,7 +286,7 @@ public class UserController implements IController
 					String[] field = col.split("=");
 					map.put(field[0], field[1]);
 				}
-				Access.add(map.get("ParentAccess"));
+				Access = map.get("ParentAccess");
 			}
 			
 			cheackIfParentBlock();
