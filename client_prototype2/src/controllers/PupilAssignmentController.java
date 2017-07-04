@@ -30,7 +30,8 @@ import ui.UserWindow;
 /**
  * The Class PupilAssignmentController - this class receive pupil assignment from teacher.
  */
-public class PupilAssignmentController implements IController {
+public class PupilAssignmentController implements IController
+{
 
 	/** The resources. */
 	@FXML
@@ -94,16 +95,19 @@ public class PupilAssignmentController implements IController {
 	 * @param event - enter solution
 	 */
 	@FXML
-	void UploadSolutionFile(ActionEvent event) {
+	void UploadSolutionFile(ActionEvent event)
+	{
 		String selectedCourse = chooseCourseCB.getSelectionModel().getSelectedItem();
 		String selectedAss = chooseAssCB.getSelectionModel().getSelectedItem();
 
-		if (selectedAss == null) {
+		if (selectedAss == null)
+		{
 			new Alert(AlertType.ERROR, "Assignment was not selected!", ButtonType.OK).showAndWait();
 			return;
 		}
 
-		if (assignmentFile == null) {
+		if (assignmentFile == null)
+		{
 			new Alert(AlertType.ERROR, "Missing assignment file!", ButtonType.OK).showAndWait();
 			return;
 		}
@@ -113,18 +117,24 @@ public class PupilAssignmentController implements IController {
 		String expectedExtension = selectedAss.substring(selectedAss.lastIndexOf('.') + 1);
 		String uploadedExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
 
-		if (!expectedExtension.equals(uploadedExtension)) {
-			new Alert(AlertType.ERROR, "The Format Of The File Must Be " + expectedExtension, ButtonType.OK).showAndWait();
+		if (!expectedExtension.equals(uploadedExtension))
+		{
+			new Alert(AlertType.ERROR, "The Format Of The File Must Be " + expectedExtension, ButtonType.OK)
+					.showAndWait();
 			return;
 		}
-		if (selectedCourse == null) {
+		if (selectedCourse == null)
+		{
 			new Alert(AlertType.ERROR, "Course was not selected!", ButtonType.OK).showAndWait();
 			return;
 		}
 		byte[] contents;
-		try {
+		try
+		{
 			contents = Files.readAllBytes(assignmentFile.toPath());
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 			return;
 		}
@@ -138,9 +148,12 @@ public class PupilAssignmentController implements IController {
 		values.add(contents);
 
 		// we need to update the server and the DB about solution assignment
-		try {
+		try
+		{
 			Main.client.sendToServer(values);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 		new Alert(AlertType.INFORMATION, "Assignment was uploaded successfully!", ButtonType.OK).showAndWait();
@@ -153,7 +166,8 @@ public class PupilAssignmentController implements IController {
 	 * @param event - enter the choose solution file
 	 */
 	@FXML
-	void ChooseSolutionFile(ActionEvent event) {
+	void ChooseSolutionFile(ActionEvent event)
+	{
 		FileChooser chooser = new FileChooser();
 
 		// TODO add extension filter from DB
@@ -168,7 +182,8 @@ public class PupilAssignmentController implements IController {
 	 * @param event - enter back to pupil menu
 	 */
 	@FXML
-	void BackToPupilMenu(ActionEvent event) {
+	void BackToPupilMenu(ActionEvent event)
+	{
 		UserWindow.closeUserWindow(getClass(), (Stage) BackButton.getScene().getWindow());
 	}
 
@@ -178,7 +193,8 @@ public class PupilAssignmentController implements IController {
 	 * @param event - enter choose course
 	 */
 	@FXML
-	void chooseCourse(ActionEvent event) {
+	void chooseCourse(ActionEvent event)
+	{
 		String selectedCourse = chooseCourseCB.getSelectionModel().getSelectedItem();
 		if (selectedCourse == null)
 			return;
@@ -192,7 +208,8 @@ public class PupilAssignmentController implements IController {
 	 * @param event - enter choose assignment
 	 */
 	@FXML
-	void chooseAss(ActionEvent event) {
+	void chooseAss(ActionEvent event)
+	{
 		String selectedAss = chooseAssCB.getSelectionModel().getSelectedItem();
 		if (selectedAss == null)
 			return;
@@ -201,14 +218,18 @@ public class PupilAssignmentController implements IController {
 	/**
 	 * Load all courses.
 	 */
-	void loadAllCourses() {
+	void loadAllCourses()
+	{
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("load Courses");
 		data.add("select");
 		data.add("courses");
-		try {
+		try
+		{
 			Main.client.sendToServer(data);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -216,7 +237,8 @@ public class PupilAssignmentController implements IController {
 	/**
 	 * Load courses of pupil.
 	 */
-	void loadCoursesOfPupil() {
+	void loadCoursesOfPupil()
+	{
 		System.out.println("Current user id is " + UserID);
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("load courses of pupil");
@@ -225,9 +247,12 @@ public class PupilAssignmentController implements IController {
 		data.add("userID");
 		data.add(UserID);
 
-		try {
+		try
+		{
 			Main.client.sendToServer(data);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 	}
@@ -235,15 +260,19 @@ public class PupilAssignmentController implements IController {
 	/**
 	 * Load all assignment.
 	 */
-	void loadAllAss() {
+	void loadAllAss()
+	{
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("load all assignments");
 		data.add("select");
 		data.add("assignment");
 
-		try {
+		try
+		{
 			Main.client.sendToServer(data);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 
@@ -254,7 +283,8 @@ public class PupilAssignmentController implements IController {
 	 *
 	 * @param courseId - enter course id
 	 */
-	void loadAssOfCourse(String courseId) {
+	void loadAssOfCourse(String courseId)
+	{
 		ArrayList<String> data = new ArrayList<String>();
 		data.add("load assignment of course");
 		data.add("select");
@@ -262,9 +292,12 @@ public class PupilAssignmentController implements IController {
 		data.add("courseID");
 		data.add(courseId);
 
-		try {
+		try
+		{
 			Main.client.sendToServer(data);
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 
@@ -274,7 +307,8 @@ public class PupilAssignmentController implements IController {
 	 * Initialize.
 	 */
 	@FXML
-	void initialize() {
+	void initialize()
+	{
 		assert UploadTextField != null : "fx:id=\"UploadTextField\" was not injected: check your FXML file 'PupilAssignment.fxml'.";
 		assert chooseCourseCB != null : "fx:id=\"chooseCourseCB\" was not injected: check your FXML file 'PupilAssignment.fxml'.";
 		assert AssignmentTextField != null : "fx:id=\"AssignmentTextField\" was not injected: check your FXML file 'PupilAssignment.fxml'.";
@@ -295,24 +329,29 @@ public class PupilAssignmentController implements IController {
 		loadAllCourses();
 	}
 
-    /**
-     * Handles the answer from the server according to the type of answer.
-     */   
+	/**
+	 * Handles the answer from the server according to the type of answer.
+	 */
 	@Override
-	public void handleAnswer(Object result) {
+	public void handleAnswer(Object result)
+	{
 		System.out.println("got result " + result);
-		if (result == null) {
+		if (result == null)
+		{
 			// error
 
 			return;
 		}
 		ArrayList<String> arr = (ArrayList<String>) result;
 		String type = arr.remove(0);
-		if (type.equals("load Courses")) {
-			for (String row : arr) {
+		if (type.equals("load Courses"))
+		{
+			for (String row : arr)
+			{
 				String[] cols = row.split(";");
 				HashMap<String, String> map = new HashMap<>();
-				for (String col : cols) {
+				for (String col : cols)
+				{
 					String[] field = col.split("=");
 					map.put(field[0], field[1]);
 				}
@@ -321,11 +360,14 @@ public class PupilAssignmentController implements IController {
 			loadCoursesOfPupil();
 		}
 
-		else if (type.equals("load courses of pupil")) {
-			for (String row : arr) {
+		else if (type.equals("load courses of pupil"))
+		{
+			for (String row : arr)
+			{
 				String[] cols = row.split(";");
 				HashMap<String, String> map = new HashMap<>();
-				for (String col : cols) {
+				for (String col : cols)
+				{
 					String[] field = col.split("=");
 					map.put(field[0], field[1]);
 				}
@@ -334,12 +376,16 @@ public class PupilAssignmentController implements IController {
 				chooseCourseCB.getItems().add(courseId + ": " + allCourses.get(courseId).get("courseName"));
 			}
 			loadAllAss();
-		} else if (type.equals("load all assignmens")) {
+		}
+		else if (type.equals("load all assignmens"))
+		{
 
-			for (String row : arr) {
+			for (String row : arr)
+			{
 				String[] cols = row.split(";");
 				HashMap<String, String> map = new HashMap<>();
-				for (String col : cols) {
+				for (String col : cols)
+				{
 					String[] field = col.split("=");
 					map.put(field[0], field[1]);
 				}
@@ -347,14 +393,17 @@ public class PupilAssignmentController implements IController {
 			}
 		}
 
-		else if (type.equals("load assignment of course")) {
+		else if (type.equals("load assignment of course"))
+		{
 			while (chooseAssCB.getItems().size() > 0)
 				chooseAssCB.getItems().remove(0);
 
-			for (String row : arr) {
+			for (String row : arr)
+			{
 				String[] cols = row.split(";");
 				HashMap<String, String> map = new HashMap<>();
-				for (String col : cols) {
+				for (String col : cols)
+				{
 					String[] field = col.split("=");
 					map.put(field[0], field[1]);
 				}
