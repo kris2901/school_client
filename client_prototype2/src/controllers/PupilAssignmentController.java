@@ -114,7 +114,7 @@ public class PupilAssignmentController implements IController {
 		String uploadedExtension = fileName.substring(fileName.lastIndexOf('.') + 1);
 
 		if (!expectedExtension.equals(uploadedExtension)) {
-			new Alert(AlertType.ERROR, "Extension must be " + expectedExtension, ButtonType.OK).showAndWait();
+			new Alert(AlertType.ERROR, "The Format Of The File Must Be " + expectedExtension, ButtonType.OK).showAndWait();
 			return;
 		}
 		if (selectedCourse == null) {
