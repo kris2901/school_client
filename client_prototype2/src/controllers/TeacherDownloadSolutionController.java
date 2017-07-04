@@ -188,8 +188,8 @@ public class TeacherDownloadSolutionController implements IController {
         assert DownloadButton != null : "fx:id=\"DownloadButton\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
 
         Main.client.controller = this;
-        UserID=UserID=UserController.CurrentUserID;
-        //Main.stack.push("TeacherCheckAssignment");
+        UserID=UserController.CurrentUserID;
+        Main.stack.push("CheckAssignment");
         loadCourses();
     }
 

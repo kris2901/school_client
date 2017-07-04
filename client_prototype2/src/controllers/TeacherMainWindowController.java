@@ -98,7 +98,7 @@ public class TeacherMainWindowController implements IController  {
      */
     @FXML
     void EvaluationFormWindow(ActionEvent event) {
-    	Main.stack.push("TeacherCreateEvaluationForm");
+    	
     	UserWindow.createUserWindow((Stage) TeacherMenuButton.getScene().getWindow(), "TeacherCreateEvaluationForm", getClass());
     }
 
@@ -119,7 +119,7 @@ public class TeacherMainWindowController implements IController  {
      */
     @FXML
     void checkAss(ActionEvent event) {
-    	Main.stack.push("CheckAssignment");
+    	
     	UserWindow.createUserWindow((Stage) TeacherMenuButton.getScene().getWindow(), "CheckAssignment", getClass());
     }
     
@@ -149,6 +149,7 @@ public class TeacherMainWindowController implements IController  {
  		{
  			e.printStackTrace();
  		}
+ 		
     	UserWindow.closeUserWindow(getClass(), (Stage)TeacherMainLable.getScene().getWindow());
     }
 

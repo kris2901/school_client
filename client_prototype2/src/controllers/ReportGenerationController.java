@@ -82,7 +82,7 @@ public class ReportGenerationController implements IController
 	@FXML
 	void ClassesOfTeacher(ActionEvent event)
 	{
-		Main.stack.push("SchoolManagerReportGeneration");
+		//Main.stack.push("SchoolManagerReportGeneration");
 		UserWindow.createUserWindow((Stage) ReportWindowLabel.getScene().getWindow(),
 				"ReportBetweenClassesOfSpecificTeacher", getClass());
 	}
@@ -95,7 +95,7 @@ public class ReportGenerationController implements IController
 	@FXML
 	void CoursesInClass(ActionEvent event)
 	{
-		Main.stack.push("SchoolManagerReportGeneration");
+		//Main.stack.push("SchoolManagerReportGeneration");
 		UserWindow.createUserWindow((Stage) ReportWindowLabel.getScene().getWindow(), "ReportBetweenDiferentCoursesOfSpecificClass", getClass());
 	}
 
@@ -107,7 +107,7 @@ public class ReportGenerationController implements IController
 	@FXML
 	void TeachersInClass(ActionEvent event)
 	{
-		Main.stack.push("SchoolManagerReportGeneration");
+		//Main.stack.push("SchoolManagerReportGeneration");
 		UserWindow.createUserWindow((Stage) ReportWindowLabel.getScene().getWindow(),
 				"ReportBetweenTeachersOfSpecificClass", getClass());
 	}
@@ -126,6 +126,7 @@ public class ReportGenerationController implements IController
 		assert BetweenClasses != null : "fx:id=\"BetweenClasses\" was not injected: check your FXML file 'SchoolManagerReportGeneration.fxml'.";
 
 		Main.client.controller = this;
+		Main.stack.push("SchoolManagerReportGeneration");
 	}
 
     /**
