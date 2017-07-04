@@ -78,6 +78,7 @@ public class TeacherMainWindowController implements IController  {
      */
     @FXML
     void DefineAssignmentWindow(ActionEvent event) {
+    	
     	UserWindow.createUserWindow((Stage) LogOutButton.getScene().getWindow(), "TeacherDefineAssignment", getClass());
     }
 
@@ -102,15 +103,6 @@ public class TeacherMainWindowController implements IController  {
     	UserWindow.createUserWindow((Stage) TeacherMenuButton.getScene().getWindow(), "TeacherCreateEvaluationForm", getClass());
     }
 
-    /**
-     * Grade And Comments
-     *
-     * @param event - enter Grade And Comments
-     */
-    @FXML
-    void GradeAndComments(ActionEvent event) {
-
-    }
 
     /**
      * check Assignment
