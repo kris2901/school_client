@@ -11,15 +11,15 @@
 <AnchorPane prefHeight="358.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UserController">
    <children>
       <TextField fx:id="userIdTextField" layoutX="163.0" layoutY="133.0" />
-      <Label layoutX="73.0" layoutY="138.0" text="User ID:">
+      <Label layoutX="73.0" layoutY="138.0" text="User ID:" underline="true">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font></Label>
-      <Label layoutX="66.0" layoutY="223.0" text="Password:">
+      <Label layoutX="66.0" layoutY="223.0" text="Password:" underline="true">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font></Label>
-      <Button fx:id="loginBtn" layoutX="122.0" layoutY="285.0" mnemonicParsing="false" onAction="#login" text="Log In" />
+      <Button fx:id="loginBtn" layoutX="183.0" layoutY="285.0" mnemonicParsing="false" onAction="#login" text="Log In" />
       <Label fx:id="AISFHSlable" contentDisplay="CENTER" graphicTextGap="5.0" text="Academic Information System For High School">
          <font>
             <Font name="BN United" size="48.0" />
@@ -49,6 +49,6 @@
          </textFill>
       </Label>
       <PasswordField fx:id="passwordTextField" layoutX="163.0" layoutY="221.0" />
-      <Button fx:id="setBTN" layoutX="37.0" layoutY="285.0" mnemonicParsing="false" onAction="#openSet" text="Settings" />
+      <Button fx:id="setBTN" layoutX="37.0" layoutY="285.0" mnemonicParsing="false" onAction="#openSet" text="Server Settings" />
    </children>
 </AnchorPane>
