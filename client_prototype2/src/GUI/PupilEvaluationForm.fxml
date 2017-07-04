@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="541.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PupilShowEvaluationFormController">
+<AnchorPane prefHeight="541.0" prefWidth="802.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PupilShowEvaluationFormController">
    <children>
-      <Label fx:id="FormMenuLabel" layoutX="43.0" layoutY="14.0" text="Pupil Evaluation Form Window">
+      <Label fx:id="FormMenuLabel" layoutX="14.0" layoutY="14.0" text="Pupil Evaluation Form Window" underline="true">
          <font>
             <Font name="Bookman Old Style Bold" size="48.0" />
          </font>
