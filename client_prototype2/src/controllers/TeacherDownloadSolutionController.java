@@ -21,106 +21,126 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import ui.UserWindow;
+import javafx.scene.control.Hyperlink;
 
 /**
  * The Class TeacherDownloadSolutionController - this class download solution to teacher
  */
-public class TeacherDownloadSolutionController implements IController {
+public class TeacherDownloadSolutionController implements IController
+{
 
 	/** The resources . */
-    @FXML
-    private ResourceBundle resources;
+	@FXML
+	private ResourceBundle resources;
 
-    /** The location . */
-    @FXML
-    private URL location;
+	/** The location . */
+	@FXML
+	private URL location;
 
-    /** The Back To Menu Button . */    
-    @FXML
-    private Button BackToMenuButton;
+	/** The Back To Menu Button . */
+	@FXML
+	private Button BackToMenuButton;
 
-    /** The choose Course Combo box . */      
-    @FXML
-    private AnchorPane chooseCourseCB;
+	/** The check assignment . */
+	@FXML
+	private Label CheckPupilAssignment;
 
-    /** The check assignment . */    
-    @FXML
-    private Label CheckPupilAssignment;
+	/** The Choose Assignment Combo Box . */
+	@FXML
+	private ComboBox<String> ChooseAssignmentCB;
 
-    /** The Choose Assignment Combo Box . */    
-    @FXML
-    private ComboBox<String> ChooseAssignmentCB;
+	@FXML
+	private Label PupilLabel;
 
-    /** The Choose Pupil Combo Box . */  
-    @FXML
-    private ComboBox<String> ChoosePupilCB;
+	@FXML
+	private Hyperlink UploadHyperLink;
 
-    /** The Choose course Combo Box . */  
-    @FXML
-    private ComboBox<String> ChooseCourseCB;
+	/** The Choose Pupil Combo Box . */
+	@FXML
+	private ComboBox<String> ChoosePupilCB;
 
-    /** The download button . */  
-    @FXML
-    private Button DownloadButton;
+	/** The Choose course Combo Box . */
+	@FXML
+	private ComboBox<String> ChooseCourseCB;
 
-    /** The combo box choice . */  
-    private String CBchoice;
-    
-    /** The assignment name . */  
-    private String AssName;
-    
-    /** The pupil choice . */  
-    private String pupilChoice;
-    
-    private String UserID;
-    
-    /**
-     * choose course
-     *
-     * @param event - choose course
-     */
-    @FXML
-    void chooseCourse(ActionEvent event) {
-       	
-    }
+	/** The download button . */
+	@FXML
+	private Button DownloadButton;
 
-    /**
-     * choose course
-     *
-     * @param event - choose course
-     */
-    @FXML
-    void ChooseCourse(ActionEvent event) {
-    	CBchoice=ChooseCourseCB.getSelectionModel().getSelectedItem();
-    	ArrayList<String> data = new ArrayList<String>();
- 		data.add("Load Assignment in course");
- 		data.add("select");
- 		data.add("assignment");
- 		data.add("courseId");
- 		data.add(CBchoice);
+	@FXML
+	private Label CourseLabel;
 
- 		try
- 		{
- 			Main.client.sendToServer(data);
- 		}
- 		catch (IOException e)
- 		{
- 			e.printStackTrace();
- 		}
-    }
+	@FXML
+	private Label AssignmentLabel;
 
-    /**
-     * choose assignment
-     *
-     * @param event - choose assignment
-     */
-    @FXML
-    void ChooseAssignment(ActionEvent event) {
-    	AssName=ChooseAssignmentCB.getSelectionModel().getSelectedItem();
-    }
-    
-    public void loadCourses(){
-    	ArrayList<String> data = new ArrayList<String>();
+	/** The combo box choice . */
+	private String CBchoice;
+
+	/** The assignment name . */
+	private String AssName;
+
+	/** The pupil choice . */
+	private String pupilChoice;
+
+	private String UserID;
+
+	/**
+	 * choose course
+	 *
+	 * @param event - choose course
+	 */
+	@FXML
+	void ChooseCourse(ActionEvent event)
+	{
+		CBchoice = ChooseCourseCB.getSelectionModel().getSelectedItem();
+		ArrayList<String> data = new ArrayList<String>();
+		data.add("Load Assignment in course");
+		data.add("select");
+		data.add("assignment");
+		data.add("courseId");
+		data.add(CBchoice);
+
+		try
+		{
+			Main.client.sendToServer(data);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * choose assignment
+	 *
+	 * @param event - choose assignment
+	 */
+	@FXML
+	void ChooseAssignment(ActionEvent event)
+	{
+		AssName = ChooseAssignmentCB.getSelectionModel().getSelectedItem();
+		ArrayList<String> data = new ArrayList<String>();
+		data.add("Load Pupil");
+		data.add("select");
+		data.add("pupil_in_course");
+		data.add("courseID");
+		data.add(CBchoice);
+		data.add("gradeInCourse");
+		data.add("0");
+
+		try
+		{
+			Main.client.sendToServer(data);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void loadCourses()
+	{
+		ArrayList<String> data = new ArrayList<String>();
 		data.add("Load Courses for Teacher");
 		data.add("select");
 		data.add("course_in_class");
@@ -135,69 +155,94 @@ public class TeacherDownloadSolutionController implements IController {
 		{
 			e.printStackTrace();
 		}
-    }
+	}
 
-    /**
-     * download solution
-     *
-     * @param event - download solution
-     */
-    @FXML
-    void DownloadSolution(ActionEvent event) {
-    	if(CBchoice.equals(""))
-    	{
-    		new Alert(AlertType.ERROR, "Choose Course From List First.", ButtonType.OK).showAndWait();
-    	}
-    	else if (AssName.equals(""))
-    	{
-    		new Alert(AlertType.ERROR, "Choose Assignment From List First.", ButtonType.OK).showAndWait();
-    	}
-    }
+	/**
+	 * download solution
+	 *
+	 * @param event - download solution
+	 */
+	@FXML
+	void DownloadSolution(ActionEvent event)
+	{
+		if (CBchoice.equals(""))
+		{
+			new Alert(AlertType.ERROR, "Please choose course from list first.", ButtonType.OK).showAndWait();
+			return;
+		}
+		else if (AssName.equals(""))
+		{
+			new Alert(AlertType.ERROR, "Please choose assignment from list first.", ButtonType.OK).showAndWait();
+			return;
+		}
+		else if (pupilChoice.equals(""))
+		{
+			new Alert(AlertType.ERROR, "Please choose pupil from list first.", ButtonType.OK).showAndWait();
+			return;
+		}
+		
+		
+		
 
-    /**
-     * back to menu
-     *
-     * @param event - back to menu
-     */
-    @FXML
-    void BackToMenu(ActionEvent event) {
-    	UserWindow.closeUserWindow(getClass(), (Stage) BackToMenuButton.getScene().getWindow());
-    }
+	}
 
-    /**
-     * choose pupil
-     *
-     * @param event - choose pupil
-     */
-    @FXML
-    void ChoosePupil(ActionEvent event) {
-    	pupilChoice=ChoosePupilCB.getSelectionModel().getSelectedItem();
-    }
+	/**
+	 * back to menu
+	 *
+	 * @param event - back to menu
+	 */
+	@FXML
+	void BackToMenu(ActionEvent event)
+	{
+		UserWindow.closeUserWindow(getClass(), (Stage) BackToMenuButton.getScene().getWindow());
+	}
 
-    /**
-     * initialize
-     */
-    @FXML
-    void initialize() {
-        assert BackToMenuButton != null : "fx:id=\"BackToMenuButton\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
-        assert chooseCourseCB != null : "fx:id=\"chooseCourseCB\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
-        assert CheckPupilAssignment != null : "fx:id=\"CheckPupilAssignment\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
-        assert ChooseAssignmentCB != null : "fx:id=\"ChooseAssignmentCB\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
-        assert ChoosePupilCB != null : "fx:id=\"ChoosePupilCB\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
-        assert ChooseCourseCB != null : "fx:id=\"ChooseCourseCB\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
-        assert DownloadButton != null : "fx:id=\"DownloadButton\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+	/**
+	 * choose pupil
+	 *
+	 * @param event - choose pupil
+	 */
+	@FXML
+	void ChoosePupil(ActionEvent event)
+	{
+		pupilChoice = ChoosePupilCB.getSelectionModel().getSelectedItem();
+	}
 
-        Main.client.controller = this;
-        UserID=UserController.CurrentUserID;
-        Main.stack.push("CheckAssignment");
-        loadCourses();
-    }
+	@FXML
+	void UploadSolutionWithComments(ActionEvent event)
+	{
 
-    /**
-     * Handles the answer from the server according to the type of answer.
-     */
+	}
+
+	/**
+	 * initialize
+	 */
+	@FXML
+	void initialize()
+	{
+		assert BackToMenuButton != null : "fx:id=\"BackToMenuButton\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+		assert CheckPupilAssignment != null : "fx:id=\"CheckPupilAssignment\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+		assert ChooseAssignmentCB != null : "fx:id=\"ChooseAssignmentCB\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+		assert PupilLabel != null : "fx:id=\"PupilLabel\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+		assert UploadHyperLink != null : "fx:id=\"UploadHyperLink\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+		assert ChoosePupilCB != null : "fx:id=\"ChoosePupilCB\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+		assert ChooseCourseCB != null : "fx:id=\"ChooseCourseCB\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+		assert DownloadButton != null : "fx:id=\"DownloadButton\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+		assert CourseLabel != null : "fx:id=\"CourseLabel\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+		assert AssignmentLabel != null : "fx:id=\"AssignmentLabel\" was not injected: check your FXML file 'CheckAssignment.fxml'.";
+
+		Main.client.controller = this;
+		UserID = UserController.CurrentUserID;
+		Main.stack.push("CheckAssignment");
+		loadCourses();
+	}
+
+	/**
+	 * Handles the answer from the server according to the type of answer.
+	 */
 	@Override
-	public void handleAnswer(Object msg) {
+	public void handleAnswer(Object msg)
+	{
 		if (msg == null)
 		{
 			// error
@@ -206,8 +251,8 @@ public class TeacherDownloadSolutionController implements IController {
 		}
 		ArrayList<String> arr = (ArrayList<String>) msg;
 		String type = arr.remove(0);
-		
-		if(type.equals("Load Courses for Teacher"))
+
+		if (type.equals("Load Courses for Teacher"))
 		{
 			for (String row : arr)
 			{
@@ -222,8 +267,8 @@ public class TeacherDownloadSolutionController implements IController {
 				ChooseCourseCB.getItems().add(CourseID);
 			}
 		}
-		
-		if(type.equals("Load Pupils"))
+
+		if (type.equals("Load Pupil"))
 		{
 			for (String row : arr)
 			{
@@ -234,14 +279,14 @@ public class TeacherDownloadSolutionController implements IController {
 					String[] field = col.split("=");
 					map.put(field[0], field[1]);
 				}
-				String userID = map.get("userId");
-				String UserName=map.get("userFirstName");
-				String UserLName=map.get("userLastName");
-				ChoosePupilCB.getItems().add(userID + ": " + UserName + " " + UserLName);
+				String userID = map.get("userID");
+				//String UserName = map.get("userFirstName");
+				//String UserLName = map.get("userLastName");
+				ChoosePupilCB.getItems().add(userID/* + ": " + UserName + " " + UserLName*/);
 			}
 		}
-		
-		if(type.equals("Load Assignment in course"))
+
+		if (type.equals("Load Assignment in course"))
 		{
 			for (String row : arr)
 			{
