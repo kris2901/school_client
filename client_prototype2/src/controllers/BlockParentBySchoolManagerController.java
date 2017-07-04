@@ -170,15 +170,23 @@ public class BlockParentBySchoolManagerController implements IController
 				new Alert(AlertType.ERROR, "Parent is already Block!", ButtonType.OK).showAndWait();
 				return;
 			}
-
 			data.add("Block Parent");
 			data.add("update");
 			data.add("pupil");
 			data.add("ParentAccess");
 			data.add("1");
 			data.add("conditions");
-			data.add("userID");
-			data.add(PupilIDTextField.getText());
+			data.add("parentID");
+			data.add(ParentId);
+			
+			try
+			{
+				Main.client.sendToServer(data);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 		else if (acc.equals("free"))
 		{
@@ -187,24 +195,25 @@ public class BlockParentBySchoolManagerController implements IController
 				new Alert(AlertType.ERROR, "Parent is already free!", ButtonType.OK).showAndWait();
 				return;
 			}
-
 			data.add("Free Parent");
 			data.add("update");
 			data.add("pupil");
 			data.add("ParentAccess");
 			data.add("0");
 			data.add("conditions");
-			data.add("userID");
-			data.add(PupilIDTextField.getText());
+			data.add("parentID");
+			data.add(ParentId);
+			
+			try
+			{
+				Main.client.sendToServer(data);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
-		try
-		{
-			Main.client.sendToServer(data);
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+
 	}
 
 	/**
@@ -224,6 +233,8 @@ public class BlockParentBySchoolManagerController implements IController
 		Main.stack.push("SchoolManagerBlockUser");
 
 		PupilID = "";
+		ParentId = "";
+		access = "";
 	}
 
 	/**
@@ -232,7 +243,6 @@ public class BlockParentBySchoolManagerController implements IController
 	@Override
 	public void handleAnswer(Object result)
 	{
-
 		if (result == null)
 		{
 			// error
@@ -259,7 +269,6 @@ public class BlockParentBySchoolManagerController implements IController
 			}
 			else
 			{
-
 				for (String row : arr)
 				{
 					String[] cols = row.split(";");
@@ -277,7 +286,6 @@ public class BlockParentBySchoolManagerController implements IController
 				else
 					updateParentPermission(ParentId, "free");
 			}
-
 		}
 		else if (type.equals("Free Parent"))
 			new Alert(AlertType.INFORMATION, "Parent Free Successfully!", ButtonType.OK).showAndWait();
