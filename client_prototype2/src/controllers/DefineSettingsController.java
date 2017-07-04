@@ -35,6 +35,9 @@ public class DefineSettingsController {
     @FXML
     private Label portLabel;
     
+    @FXML
+    private Label connectionLabel;
+    
 
     @FXML
     void EnterIP(ActionEvent event) {
@@ -64,7 +67,8 @@ public class DefineSettingsController {
         assert backToLogBTN != null : "fx:id=\"backToLogBTN\" was not injected: check your FXML file 'DefineSettings.fxml'.";
         assert IPlabel != null : "fx:id=\"IPlabel\" was not injected: check your FXML file 'DefineSettings.fxml'.";
         assert portLabel != null : "fx:id=\"portLabel\" was not injected: check your FXML file 'DefineSettings.fxml'.";
-
+        assert connectionLabel != null : "fx:id=\"connectionLabel\" was not injected: check your FXML file 'DefineSettings.fxml'.";
+        
         Main.stack.push("DefineSettings");
     }
 }
