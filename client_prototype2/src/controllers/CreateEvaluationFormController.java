@@ -189,7 +189,8 @@ public class CreateEvaluationFormController implements IController  {
      */
     @FXML
     void BackToMenu(ActionEvent event) {
-    	UserWindow.exitToMenu(getClass(), (Stage)BackButton.getScene().getWindow());
+    	
+    	UserWindow.closeUserWindow(getClass(), (Stage) CourseLabel.getScene().getWindow());
     }
 
     /**

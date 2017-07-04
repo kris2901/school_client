@@ -252,7 +252,7 @@ public class DefineAssignmentController implements IController
 		isExistingAssignment = false;
 		isExistingCourse = false;
 		
-		UserWindow.exitToMenu(getClass(), (Stage) BackButton.getScene().getWindow());
+		UserWindow.closeUserWindow(getClass(), (Stage) EnterClassIdLabel.getScene().getWindow());
 
 	}
 	/*@FXML
@@ -344,8 +344,7 @@ public class DefineAssignmentController implements IController
 	@FXML
 	void BackToMenu(ActionEvent event)
 	{
-		UserWindow.exitToMenu(getClass(), (Stage) BackButton.getScene().getWindow());
-
+		UserWindow.closeUserWindow(getClass(), (Stage) EnterClassIdLabel.getScene().getWindow());
 	}
 
 	/**
