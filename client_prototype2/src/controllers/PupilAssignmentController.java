@@ -129,11 +129,12 @@ public class PupilAssignmentController implements IController {
 			return;
 		}
 
-		java.util.List<Object> values = new ArrayList<>();
+		ArrayList<Object> values = new ArrayList<>();
 		values.add("add assignment solution");
 		values.add(selectedAss);
 		values.add(selectedCourse);
 		values.add(fileName);
+		values.add(UserID);
 		values.add(contents);
 
 		// we need to update the server and the DB about solution assignment
