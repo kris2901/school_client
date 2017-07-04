@@ -81,7 +81,7 @@ public class UserController implements IController
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			// alert server is not availble
+			new Alert(AlertType.ERROR, "Server is not available", ButtonType.OK).showAndWait();
 		}
 	}
 	
